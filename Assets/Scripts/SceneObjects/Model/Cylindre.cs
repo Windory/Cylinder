@@ -23,9 +23,9 @@ public class Cylindre : MonoBehaviour
 
     public void Rotation()
     {
-        while (manivelle.IsActivate())
+        /*while (manivelle.IsActivate())
         {
             partition.Read();
-        }
+        }*/
     }
 }
