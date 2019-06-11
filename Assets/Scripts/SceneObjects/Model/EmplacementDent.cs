@@ -5,20 +5,23 @@ using System;
 public class EmplacementDent : MonoBehaviour
 {
     private Dent dent;
+    private Renderer r;
 
     // Drag and Drop
-    private Color activeDragColor = Color.white;
+    private Color activeDragColor = Color.cyan;
     private Color mouseOverColor = Color.blue;
-    private Color originalColor = Color.yellow;
+    private Color originalColor = Color.white;
     private bool dragging = false;
     private bool selected = false;
     private float distance;
     private Vector3 posDent;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        posDent = gameObject.transform.position;
+        r = GetComponent<Renderer>();
+        posDent = GetComponent<BoxCollider2D>().bounds.center;
+        gameObject.layer = 2;
     }
 
     // Update is called once per frame
@@ -32,7 +35,7 @@ public class EmplacementDent : MonoBehaviour
         if (dragging)
         {
             selected = true;
-            GetComponent<Renderer>().material.color = mouseOverColor;
+            r.material.color = mouseOverColor;
         }
     }
 
@@ -41,20 +44,24 @@ public class EmplacementDent : MonoBehaviour
         if (dragging)
         {
             selected = false;
-            GetComponent<Renderer>().material.color = activeDragColor;
+            r.material.color = activeDragColor;
         }
     }
 
     public void ActiveDrag()
     {
         dragging = true;
-        GetComponent<Renderer>().material.color = activeDragColor;
+        gameObject.layer = 0;
+        r.material.color = activeDragColor;
+        r.sortingOrder = 2;
     }
 
     public void DisableDrag()
     {
         dragging = false;
-        GetComponent<Renderer>().material.color = originalColor;
+        gameObject.layer = 2;
+        r.material.color = originalColor;
+        r.sortingOrder = 1;
     }
 
     public void SwitchDent(EmplacementDent empTarget)

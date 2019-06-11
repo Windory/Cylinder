@@ -44,11 +44,16 @@ public class Dent : MonoBehaviour
     public void OnMouseDown()
     {
         dragging = true;
-
         distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+
         foreach (EmplacementDent empDent in FindObjectsOfType<EmplacementDent>())
         {
             empDent.ActiveDrag();
+        }
+
+        foreach (Dent dent in FindObjectsOfType<Dent>())
+        {
+            dent.gameObject.layer = 2;
         }
     }
 
@@ -71,6 +76,11 @@ public class Dent : MonoBehaviour
         {
             InitialPosition();
         }
+
+        foreach (Dent dent in FindObjectsOfType<Dent>())
+        {
+            dent.gameObject.layer = 0;
+        }
     }
 
     public void InitialPosition()
@@ -86,7 +96,7 @@ public class Dent : MonoBehaviour
 
     public void SwitchEmp(EmplacementDent emp2)
     {
-        emp2.SwitchDent(emp);
+        emp.SwitchDent(emp2);
     }
 
     public void SetEmp(EmplacementDent emp)

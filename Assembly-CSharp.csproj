@@ -61,13 +61,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
-    <Compile Include="Assets\Scripts\SceneObjects\Cylindre.cs" />
-    <Compile Include="Assets\Scripts\SceneObjects\Dent.cs" />
-    <Compile Include="Assets\Scripts\SceneObjects\EmplacementDent.cs" />
-    <Compile Include="Assets\Scripts\SceneObjects\Ligne.cs" />
-    <Compile Include="Assets\Scripts\SceneObjects\Manivelle.cs" />
-    <Compile Include="Assets\Scripts\SceneObjects\Partition.cs" />
-    <Compile Include="Assets\Scripts\SceneObjects\Tige.cs" />
+    <Compile Include="Assets\Scripts\SceneObjects\Controller\ManivelleController.cs" />
+    <Compile Include="Assets\Scripts\SceneObjects\Model\Cylindre.cs" />
+    <Compile Include="Assets\Scripts\SceneObjects\Model\Dent.cs" />
+    <Compile Include="Assets\Scripts\SceneObjects\Model\EmplacementDent.cs" />
+    <Compile Include="Assets\Scripts\SceneObjects\Model\Ligne.cs" />
+    <Compile Include="Assets\Scripts\SceneObjects\Model\Manivelle.cs" />
+    <Compile Include="Assets\Scripts\SceneObjects\Model\Partition.cs" />
+    <Compile Include="Assets\Scripts\SceneObjects\View\ManivelleView.cs" />
+    <Compile Include="Assets\Scripts\SceneObjects\View\PartitionView.cs" />
+    <None Include="Assets\Resources\Partition.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/coren/git/Cylinder/Cylinder/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

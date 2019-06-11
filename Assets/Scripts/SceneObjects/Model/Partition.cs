@@ -16,7 +16,7 @@ public class Partition : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Load("../Partition.txt");
+        Load("Assets/Resources/Partition.txt");
     }
 
     // Update is called once per frame
@@ -38,6 +38,9 @@ public class Partition : MonoBehaviour
             int j = 0;
             foreach (string note in noteList)
             {
+                if (note == "")
+                    continue;
+
                 bool isNote;
                 if (note == "*")
                     isNote = true;
