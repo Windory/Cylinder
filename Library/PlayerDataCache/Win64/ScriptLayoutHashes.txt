@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-C:/Users/coren/git/Cylinder/Cylinder.exe
+C:/Users/coren/git/Cylinder/Build/Cylinder.exe
 SceneListBegin?
 Assets/Scenes/Test.unity
 SceneListEnd?
