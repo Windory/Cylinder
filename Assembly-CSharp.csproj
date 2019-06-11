@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\SceneObjects\Model\Ligne.cs" />
     <Compile Include="Assets\Scripts\SceneObjects\Model\Manivelle.cs" />
     <Compile Include="Assets\Scripts\SceneObjects\Model\Partition.cs" />
+    <Compile Include="Assets\Scripts\SceneObjects\Model\Tige.cs" />
     <Compile Include="Assets\Scripts\SceneObjects\View\ManivelleView.cs" />
     <Compile Include="Assets\Scripts\SceneObjects\View\PartitionView.cs" />
     <None Include="Assets\Resources\Partition.txt" />

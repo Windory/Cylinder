@@ -3,6 +3,10 @@ using System.Collections;
 
 public class ManivelleView : MonoBehaviour
 {
+    // temp
+    public Tige[] tigeList = new Tige[9];
+    int active = 0;
+
     private ManivelleController controller;
     private SpriteRenderer sr;
     private BoxCollider2D bc;
@@ -20,10 +24,17 @@ public class ManivelleView : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //temp
+        tigeList[active].gameObject.SetActive(true);
+
         controller = GetComponent<ManivelleController>();
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
         rotationPoint = GameObject.Find("RotationPoint").transform.position;
+        for (int i = 0; i < 9; ++i)
+        {
+            tigeList[i].gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -78,10 +89,14 @@ public class ManivelleView : MonoBehaviour
         dragging = false;
     }
 
-    public void UpdateView(int state)
+    public void UpdateView(int state, int active) //temp
     {
         this.state = state;
         sr.sprite = spriteList[state];
         bc.offset = centerList[state];
+        tigeList[this.active].gameObject.SetActive(false);
+        tigeList[active].gameObject.SetActive(true);
+        this.active = active;
+
     }
 }

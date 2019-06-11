@@ -28,13 +28,13 @@ public class ManivelleController : MonoBehaviour
     {
         Debug.Log("Crank");
         model.Crank();
-        view.UpdateView(model.GetState());
+        view.UpdateView(model.GetState(), model.GetActive()); //temp
     }
 
     public void ReverseCrank()
     {
         Debug.Log("ReverseCrank");
         model.ReverseCrank();
-        view.UpdateView(model.GetState());
+        view.UpdateView(model.GetState(), model.GetActive()); //temp
     }
 }
