@@ -6,6 +6,7 @@ public class ManivelleController : MonoBehaviour
 {
     private Manivelle model;
     private ManivelleView view;
+    private PartitionController p_controller;
 
 
     // Start is called before the first frame update
@@ -13,28 +14,20 @@ public class ManivelleController : MonoBehaviour
     {
         model = GetComponent<Manivelle>();
         view = GetComponent<ManivelleView>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Si l'utilisateur clic sur la manivelle
-        //   Crank();
-        // Si l'utilisateur retire le clic de la manivelle
-        //   Stop();
+        p_controller = GameObject.Find("Partition").GetComponent<PartitionController>();
     }
 
     public void Crank()
     {
-        Debug.Log("Crank");
         model.Crank();
-        view.UpdateView(model.GetState(), model.GetActive()); //temp
+        view.UpdateView(model.GetState());
+        p_controller.Read();
     }
 
     public void ReverseCrank()
     {
-        Debug.Log("ReverseCrank");
         model.ReverseCrank();
-        view.UpdateView(model.GetState(), model.GetActive()); //temp
+        view.UpdateView(model.GetState());
+        p_controller.ReverseRead();
     }
 }

@@ -99,4 +99,10 @@ public class EmplacementDent : MonoBehaviour
     {
         return posDent;
     }
+
+    public void Play()
+    {
+        if (dent != null)
+            dent.Play();
+    }
 }

@@ -5,18 +5,27 @@ using System.IO;
 
 public class Partition : MonoBehaviour
 {
-    private Ligne[] ligne_list = new Ligne[8];
-    private bool[,] partition = new bool[144, 8];
+    public Ligne[] ligne_list = new Ligne[8];
+    private bool[][] partition = new bool[8][];
 
     // Partie visible de la partition
     private int borneInf = 0;
-    private int borneSup = 16;
+    private int borneSup = 8;
+    private int borneLim = 143;
 
+
+    private void Awake()
+    {
+        for (int i = 0; i < 8; ++i)
+        {
+            partition[i] = new bool[borneLim + 1];
+        }
+        Load("Assets/Resources/Partition.txt");
+    }
 
     // Use this for initialization
     void Start()
     {
-        Load("Assets/Resources/Partition.txt");
     }
 
     // Update is called once per frame
@@ -30,12 +39,12 @@ public class Partition : MonoBehaviour
         StreamReader file = new StreamReader(filename);
         string line;
 
-        int i = 0;
-        while ((line = file.ReadLine()) != null && i < 144)
+        int j = 0;
+        while ((line = file.ReadLine()) != null && j < 144)
         {
             string[] noteList = line.Split('|');
 
-            int j = 0;
+            int i = 0;
             foreach (string note in noteList)
             {
                 if (note == "")
@@ -46,19 +55,61 @@ public class Partition : MonoBehaviour
                     isNote = true;
                 else
                     isNote = false;
-                partition[i, j] = isNote;
-                ++j;
+                partition[i][j] = isNote;
+                ++i;
             }
-            ++i;
+            ++j;
         }
     }
 
-
     public void Read()
     {
-        for (int i = 0; i < 8; ++i)
-        {
-            ligne_list[i].Read();
-        }
+        if (borneSup < borneLim)
+            ++borneSup;
+        else
+            borneSup = 0;
+
+        if (borneInf < borneLim)
+            ++borneInf;
+        else
+            borneInf = 0;
+    }
+
+    public void ReverseRead()
+    {
+        if (borneInf > 0)
+            --borneInf;
+        else
+            borneInf = borneLim;
+
+        if (borneSup > 0)
+            --borneSup;
+        else
+            borneSup = borneLim;
+    }
+
+    public Ligne[] GetLigneList()
+    {
+        return ligne_list;
+    }
+
+    public bool[][] GetPartition()
+    {
+        return partition;
+    }
+
+    public int GetBorneInf()
+    {
+        return borneInf;
+    }
+
+    public int GetBorneSup()
+    {
+        return borneSup;
+    }
+
+    public int GetBorneLim()
+    {
+        return borneLim;
     }
 }

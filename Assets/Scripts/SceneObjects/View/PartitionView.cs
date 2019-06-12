@@ -3,20 +3,12 @@ using System.Collections;
 
 public class PartitionView : MonoBehaviour
 {
-    private Partition model;
-
-    public SpriteRenderer tige;
-
-
-    // Use this for initialization
-    void Start()
+    public void RefreshView(Ligne[] ligneList, bool[][] partition, int bornInf, int bornSup, int bornLim)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        for (int i = 0; i < 8; ++i)
+        {
+            Ligne ligne = ligneList[i];
+            ligne.Update(partition[i], bornInf, bornSup, bornLim);
+        }
     }
 }

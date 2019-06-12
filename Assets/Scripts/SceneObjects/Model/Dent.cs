@@ -5,6 +5,7 @@ using UnityEngine;
 public class Dent : MonoBehaviour
 {
     public EmplacementDent emp;
+    public AudioClip sound;
 
     // Drag and Drop
     private Color mouseOverColor = Color.blue;
@@ -108,5 +109,10 @@ public class Dent : MonoBehaviour
     public EmplacementDent GetEmp()
     {
         return emp;
+    }
+
+    public void Play()
+    {
+        AudioSource.PlayClipAtPoint(sound, transform.position);
     }
 }
