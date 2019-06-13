@@ -17,6 +17,9 @@ public class ManivelleView : MonoBehaviour
     float distance;
     Vector3 rotationPoint;
 
+    int wait = 0;
+    int waitingTime = 5; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
+
     private void Awake()
     {
         controller = GetComponent<ManivelleController>();
@@ -33,17 +36,24 @@ public class ManivelleView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dragging)
+        if (dragging && wait <= 0)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector2 rayPoint = ray.GetPoint(distance);
             Vector2 localPos = gameObject.transform.position;
             float currentDist = Vector2.Distance(rayPoint, centerList[state] + localPos);
 
+            wait = waitingTime;
             if (currentDist > Vector2.Distance(rayPoint, centerList[Next()] + localPos))
                 controller.Crank();
             else if (currentDist > Vector2.Distance(rayPoint, centerList[Previous()] + localPos))
                 controller.ReverseCrank();
+            else
+                wait = 0;
+        }
+        else
+        {
+            --wait;
         }
     }
 

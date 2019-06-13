@@ -44,7 +44,7 @@ public class Partition : MonoBehaviour
         {
             string[] noteList = line.Split('|');
 
-            int i = 0;
+            int i = 7;
             foreach (string note in noteList)
             {
                 if (note == "")
@@ -56,7 +56,7 @@ public class Partition : MonoBehaviour
                 else
                     isNote = false;
                 partition[i][j] = isNote;
-                ++i;
+                --i;
             }
             ++j;
         }
