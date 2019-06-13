@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class Dent : MonoBehaviour
     public int id = 0;
 
     // Drag and Drop
+    private static bool move = true;
     private Color mouseOverColor = Color.blue;
     private Color originalColor = Color.yellow;
     private bool dragging = false;
@@ -29,7 +31,7 @@ public class Dent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dragging)
+        if (dragging && move)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 rayPoint = ray.GetPoint(distance);
@@ -37,55 +39,68 @@ public class Dent : MonoBehaviour
         }
     }
 
+    public static void SetMove(bool b)
+    {
+        move = b;
+    }
+
     public void OnMouseEnter()
     {
-        GetComponent<Renderer>().material.color = mouseOverColor;
+        if (move)
+            GetComponent<Renderer>().material.color = mouseOverColor;
     }
 
     public void OnMouseExit()
     {
-        GetComponent<Renderer>().material.color = originalColor;
+        if (move)
+            GetComponent<Renderer>().material.color = originalColor;
     }
 
     public void OnMouseDown()
     {
-        dragging = true;
-        distance = Vector3.Distance(transform.position, Camera.main.transform.position);
-
-        foreach (EmplacementDent empDent in FindObjectsOfType<EmplacementDent>())
+        if (move)
         {
-            empDent.ActiveDrag();
-        }
+            dragging = true;
+            distance = Vector3.Distance(transform.position, Camera.main.transform.position);
 
-        foreach (Dent dent in FindObjectsOfType<Dent>())
-        {
-            dent.gameObject.layer = 2;
+            foreach (EmplacementDent empDent in FindObjectsOfType<EmplacementDent>())
+            {
+                empDent.ActiveDrag();
+            }
+
+            foreach (Dent dent in FindObjectsOfType<Dent>())
+            {
+                dent.gameObject.layer = 2;
+            }
         }
     }
 
     public void OnMouseUp()
     {
-        dragging = false;
-
-        bool isSwitch = false;
-        foreach (EmplacementDent empDent in FindObjectsOfType<EmplacementDent>())
+        if (move)
         {
-            empDent.DisableDrag();
-            if (empDent.IsSelected())
+            dragging = false;
+
+            bool isSwitch = false;
+            foreach (EmplacementDent empDent in FindObjectsOfType<EmplacementDent>())
             {
-                SwitchEmp(empDent);
-                isSwitch = true;
+                empDent.DisableDrag();
+                if (empDent.IsSelected())
+                {
+                    SwitchEmp(empDent);
+                    isSwitch = true;
+                }
             }
-        }
 
-        if (!isSwitch)
-        {
-            InitialPosition();
-        }
+            if (!isSwitch)
+            {
+                InitialPosition();
+            }
 
-        foreach (Dent dent in FindObjectsOfType<Dent>())
-        {
-            dent.gameObject.layer = 0;
+            foreach (Dent dent in FindObjectsOfType<Dent>())
+            {
+                dent.gameObject.layer = 0;
+            }
         }
     }
 

@@ -8,6 +8,9 @@ public class ManivelleController : MonoBehaviour
     private ManivelleView view;
     private PartitionController p_controller;
 
+    int wait = 0;
+    int waitingTime = 5; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
+    bool reset = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,27 +22,73 @@ public class ManivelleController : MonoBehaviour
         model.SetMaxCrank(p_controller.GetBorneLim());
     }
 
+    private void Update()
+    {
+        if (wait > 0)
+            --wait;
+        if (wait < 0)
+            wait = 0;
+        if (reset)
+        {
+            ReverseCrank();
+        }
+    }
+
     public void Crank()
     {
-        if (model.IsLimitPoint() && !GameManager.Instance().Proceed(p_controller.GetDents()))
+        if (wait == 0)
         {
-            Debug.Log("Mauvaise combinaison");
-            return;
+            if (model.IsBeginning())
+            {
+                Dent.SetMove(false);
+            }
+            else if (model.IsLimitPoint() && !GameManager.Instance().Proceed(p_controller.GetDents()))
+            {
+                ResetManivelle();
+                return;
+            }
+
+            model.Crank();
+            view.UpdateView(model.GetState());
+            p_controller.Read();
+
+            if (model.IsBeginning())
+            {
+                Dent.SetMove(true);
+            }
+
+            wait = waitingTime;
         }
-        model.Crank();
-        view.UpdateView(model.GetState());
-        p_controller.Read();
     }
 
     public void ReverseCrank()
     {
-        if (model.IsBeginning())
+        if (wait == 0)
         {
-            Debug.Log("Max ReverseCrank");
-            return;
+            if (model.IsBeginning())
+            {
+                Debug.Log("Max ReverseCrank");
+                return;
+            }
+
+            model.ReverseCrank();
+            view.UpdateView(model.GetState());
+            p_controller.ReverseRead();
+
+            if (model.IsBeginning())
+            {
+                Dent.SetMove(true);
+                view.SetMove(true);
+                reset = false;
+            }
+
+            wait = waitingTime;
         }
-        model.ReverseCrank();
-        view.UpdateView(model.GetState());
-        p_controller.ReverseRead();
+    }
+
+    public void ResetManivelle()
+    {
+        view.SetMove(false);
+        reset = true;
     }
 }
