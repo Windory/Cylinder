@@ -15,10 +15,17 @@ public class ManivelleController : MonoBehaviour
         model = GetComponent<Manivelle>();
         view = GetComponent<ManivelleView>();
         p_controller = GameObject.Find("Partition").GetComponent<PartitionController>();
+
+        model.SetMaxCrank(p_controller.GetBorneLim());
     }
 
     public void Crank()
     {
+        if (model.IsLimitPoint() && !GameManager.Instance().Proceed(p_controller.GetDents()))
+        {
+            Debug.Log("Mauvaise combinaison");
+            return;
+        }
         model.Crank();
         view.UpdateView(model.GetState());
         p_controller.Read();
@@ -26,6 +33,11 @@ public class ManivelleController : MonoBehaviour
 
     public void ReverseCrank()
     {
+        if (model.IsBeginning())
+        {
+            Debug.Log("Max ReverseCrank");
+            return;
+        }
         model.ReverseCrank();
         view.UpdateView(model.GetState());
         p_controller.ReverseRead();

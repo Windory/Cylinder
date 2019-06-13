@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PartitionView : MonoBehaviour
 {
-    public void RefreshView(Ligne[] ligneList, bool[][] partition, int bornInf, int bornSup, int bornLim)
+    public void RefreshView(Ligne[] ligneList, List<bool>[] partition, int bornInf, int bornSup, int bornLim)
     {
         for (int i = 0; i < 8; ++i)
         {

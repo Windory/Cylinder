@@ -18,7 +18,7 @@ public class ManivelleView : MonoBehaviour
     Vector3 rotationPoint;
 
     int wait = 0;
-    int waitingTime = 10; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
+    int waitingTime = 2; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
 
     private void Awake()
     {

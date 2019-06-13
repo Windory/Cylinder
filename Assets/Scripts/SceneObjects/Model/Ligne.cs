@@ -24,7 +24,7 @@ public class Ligne : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    public void Update(bool[] partition, int bornInf, int bornSup, int bornLim)
+    public void Update(List<bool> partition, int bornInf, int bornSup, int bornLim)
     {
         if (bornInf > bornSup)
         {
@@ -47,5 +47,10 @@ public class Ligne : MonoBehaviour
         {
             emp.Play();
         }
+    }
+
+    public int GetIdDent()
+    {
+        return emp.GetIdDent();
     }
 }

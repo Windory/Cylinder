@@ -105,4 +105,11 @@ public class EmplacementDent : MonoBehaviour
         if (dent != null)
             dent.Play();
     }
+
+    public int GetIdDent()
+    {
+        if (dent == null)
+            return 0;
+        return dent.GetId();
+    }
 }

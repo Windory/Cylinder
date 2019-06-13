@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4255170178040441013, guid: 8b942b77259b87847a064eaf01525d59,
         type: 3}
       propertyPath: m_Name
-      value: Dent 1
+      value: Dent 1 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1983032124622302386, guid: 8b942b77259b87847a064eaf01525d59,
         type: 3}
@@ -83,5 +83,10 @@ PrefabInstance:
       propertyPath: sound
       value: 
       objectReference: {fileID: 8300000, guid: cb0ee2d5af2e4894a995a189f3c18f3b, type: 3}
+    - target: {fileID: 7570170325963221050, guid: 8b942b77259b87847a064eaf01525d59,
+        type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b942b77259b87847a064eaf01525d59, type: 3}

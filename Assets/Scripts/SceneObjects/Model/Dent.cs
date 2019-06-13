@@ -6,6 +6,7 @@ public class Dent : MonoBehaviour
 {
     public EmplacementDent emp;
     public AudioClip sound;
+    public int id = 0;
 
     // Drag and Drop
     private Color mouseOverColor = Color.blue;
@@ -17,6 +18,10 @@ public class Dent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (emp == null)
+        {
+            emp = GameObject.Find("EmplacementDefaut").GetComponent<EmplacementDent>();
+        }
         NewPosition(emp.GetPos());
         emp.SetDent(this);
     }
@@ -114,5 +119,10 @@ public class Dent : MonoBehaviour
     public void Play()
     {
         AudioSource.PlayClipAtPoint(sound, transform.position);
+    }
+
+    public int GetId()
+    {
+        return id;
     }
 }

@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System;
 using System.IO;
 
 public class Partition : MonoBehaviour
 {
     public Ligne[] ligne_list = new Ligne[8];
-    private bool[][] partition = new bool[8][];
+    private List<bool>[] partition = new List<bool>[8];
 
     // Partie visible de la partition
     private int borneInf = 0;
     private int borneSup = 8;
-    private int borneLim = 143;
+    private int borneLim;
 
 
     private void Awake()
     {
         for (int i = 0; i < 8; ++i)
         {
-            partition[i] = new bool[borneLim + 1];
+            partition[i] = new List<bool>();
         }
         Load("Assets/Resources/Partition.txt");
     }
@@ -40,7 +40,7 @@ public class Partition : MonoBehaviour
         string line;
 
         int j = 0;
-        while ((line = file.ReadLine()) != null && j < 144)
+        while ((line = file.ReadLine()) != null)
         {
             string[] noteList = line.Split('|');
 
@@ -55,11 +55,12 @@ public class Partition : MonoBehaviour
                     isNote = true;
                 else
                     isNote = false;
-                partition[i][j] = isNote;
+                partition[i].Add(isNote);
                 --i;
             }
             ++j;
         }
+        borneLim = j - 1;
     }
 
     public void Read()
@@ -93,7 +94,7 @@ public class Partition : MonoBehaviour
         return ligne_list;
     }
 
-    public bool[][] GetPartition()
+    public List<bool>[] GetPartition()
     {
         return partition;
     }
@@ -111,5 +112,17 @@ public class Partition : MonoBehaviour
     public int GetBorneLim()
     {
         return borneLim;
+    }
+
+    public int[] GetDents()
+    {
+        int[] result = new int[8];
+        int i = 0;
+        foreach (Ligne ligne in ligne_list)
+        {
+            result[i] = ligne.GetIdDent();
+            ++i;
+        }
+        return result;
     }
 }

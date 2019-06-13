@@ -35,4 +35,14 @@ public class PartitionController : MonoBehaviour
         model.ReverseRead();
         view.RefreshView(model.GetLigneList(), model.GetPartition(), model.GetBorneInf(), model.GetBorneSup(), model.GetBorneLim());
     }
+
+    public int[] GetDents()
+    {
+        return model.GetDents();
+    }
+
+    public int GetBorneLim()
+    {
+        return model.GetBorneLim();
+    }
 }
