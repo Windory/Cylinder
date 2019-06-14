@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ManivelleController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class ManivelleController : MonoBehaviour
     private Illustration illustration;
 
     int wait = 0;
-    int waitingTime = 5; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
+    int waitingTime = 10; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
     bool reset = false;
 
     // Start is called before the first frame update
@@ -18,8 +19,8 @@ public class ManivelleController : MonoBehaviour
     {
         model = GetComponent<Manivelle>();
         view = GetComponent<ManivelleView>();
-        p_controller = GameObject.Find("Partition").GetComponent<PartitionController>();
-        illustration = GameObject.Find("Background").GetComponent<Illustration>();
+        p_controller = GameObject.FindObjectOfType<PartitionController>();
+        illustration = GameObject.FindObjectOfType<Illustration>();
         illustration.SetTrans(p_controller.GetBorneLim());
 
         model.SetMaxCrank(p_controller.GetBorneLim());
@@ -95,5 +96,10 @@ public class ManivelleController : MonoBehaviour
     {
         view.SetMove(false);
         reset = true;
+    }
+
+    public void SetSpeed(Slider slider)
+    {
+        waitingTime = 10 - (int)slider.value;
     }
 }
