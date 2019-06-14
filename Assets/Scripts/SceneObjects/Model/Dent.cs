@@ -9,6 +9,8 @@ public class Dent : MonoBehaviour
     public AudioClip sound;
     public int id = 0;
 
+    private AudioSource source;
+
     // Drag and Drop
     private static bool move = true;
     private Color mouseOverColor = Color.blue;
@@ -26,6 +28,7 @@ public class Dent : MonoBehaviour
         }
         NewPosition(emp.GetPos());
         emp.SetDent(this);
+        source = GameObject.Find("Main Camera").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -133,7 +136,7 @@ public class Dent : MonoBehaviour
 
     public void Play()
     {
-        AudioSource.PlayClipAtPoint(sound, transform.position);
+        source.PlayOneShot(sound, 1);
     }
 
     public int GetId()
