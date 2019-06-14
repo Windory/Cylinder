@@ -6,6 +6,8 @@ using System.IO;
 public class Partition : MonoBehaviour
 {
     public Ligne[] ligne_list = new Ligne[8];
+
+    private string filename = "Partition";
     private List<bool>[] partition = new List<bool>[8];
 
     // Partie visible de la partition
@@ -20,7 +22,7 @@ public class Partition : MonoBehaviour
         {
             partition[i] = new List<bool>();
         }
-        Load("Assets/Resources/Partition.txt");
+        Load();
     }
 
     // Use this for initialization
@@ -35,33 +37,42 @@ public class Partition : MonoBehaviour
 
     }
     
-    private void Load(string filename)
+    private void Load()
     {
-        StreamReader file = new StreamReader(filename);
-        string line;
-
-        int j = 0;
-        while ((line = file.ReadLine()) != null)
+        try
         {
-            string[] noteList = line.Split('|');
+            string file = Resources.Load<TextAsset>(filename).ToString();
+            string[] array = file.Split('\n');
 
-            int i = 7;
-            foreach (string note in noteList)
+            int j = 0;
+            foreach (string line in array)
             {
-                if (note == "")
-                    continue;
+                string[] noteList = line.Split('|');
 
-                bool isNote;
-                if (note == "*")
-                    isNote = true;
-                else
-                    isNote = false;
-                partition[i].Add(isNote);
-                --i;
+                int i = 7;
+                foreach (string note in noteList)
+                {
+                    if (note == "" || i < 0)
+                        continue;
+
+                    bool isNote;
+                    if (note == "*")
+                        isNote = true;
+                    else
+                        isNote = false;
+                    partition[i].Add(isNote);
+                    --i;
+                }
+                ++j;
             }
-            ++j;
+            borneLim = j - 1;
         }
-        borneLim = j - 1;
+        catch (Exception e)
+        {
+            // Directory not found
+            Debug.Log(e.Message);
+            Application.Quit();
+        }
     }
 
     public void Read()

@@ -7,6 +7,7 @@ public class ManivelleController : MonoBehaviour
     private Manivelle model;
     private ManivelleView view;
     private PartitionController p_controller;
+    private Illustration illustration;
 
     int wait = 0;
     int waitingTime = 5; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
@@ -18,6 +19,8 @@ public class ManivelleController : MonoBehaviour
         model = GetComponent<Manivelle>();
         view = GetComponent<ManivelleView>();
         p_controller = GameObject.Find("Partition").GetComponent<PartitionController>();
+        illustration = GameObject.Find("Background").GetComponent<Illustration>();
+        illustration.SetTrans(p_controller.GetBorneLim());
 
         model.SetMaxCrank(p_controller.GetBorneLim());
     }
@@ -51,6 +54,7 @@ public class ManivelleController : MonoBehaviour
             model.Crank();
             view.UpdateView(model.GetState());
             p_controller.Read();
+            illustration.Read();
 
             if (model.IsBeginning())
             {
@@ -74,6 +78,7 @@ public class ManivelleController : MonoBehaviour
             model.ReverseCrank();
             view.UpdateView(model.GetState());
             p_controller.ReverseRead();
+            illustration.ReverseRead();
 
             if (model.IsBeginning())
             {
