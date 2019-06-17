@@ -11,7 +11,7 @@ public class ManivelleController : MonoBehaviour
     private Illustration illustration;
 
     int wait = 0;
-    int waitingTime = 10; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
+    int waitingTime = 8; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
     bool reset = false;
     bool auto = false;
     bool autoMode = true;
@@ -67,6 +67,7 @@ public class ManivelleController : MonoBehaviour
             if (model.IsBeginning())
             {
                 Dent.SetMove(true);
+                auto = false;
             }
 
             wait = waitingTime;
