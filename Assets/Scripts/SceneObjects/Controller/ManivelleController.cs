@@ -52,6 +52,8 @@ public class ManivelleController : MonoBehaviour
             if (model.IsBeginning())
             {
                 Dent.SetMove(false);
+                if (autoMode)
+                    view.SetMove(false);
             }
             else if (model.IsLimitPoint() && !GameManager.Instance().Proceed(p_controller.GetDents()))
             {
@@ -68,6 +70,8 @@ public class ManivelleController : MonoBehaviour
             {
                 Dent.SetMove(true);
                 auto = false;
+                if (autoMode)
+                    view.SetMove(true);
             }
 
             wait = waitingTime;
