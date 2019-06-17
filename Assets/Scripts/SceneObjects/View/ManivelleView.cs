@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ManivelleView : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class ManivelleView : MonoBehaviour
     public Vector2[] centerList = new Vector2[8];
     int state = 0; // 0 -> 8
 
+    // Drag
+    bool autoMode = true;
     bool move = true;
     Color mouseOverColor = Color.cyan;
     Color originalColor = Color.gray;
@@ -34,7 +37,7 @@ public class ManivelleView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dragging && move)
+        if (!autoMode && dragging && move)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector2 rayPoint = ray.GetPoint(distance);
@@ -78,14 +81,19 @@ public class ManivelleView : MonoBehaviour
     {
         if (move)
         {
-            dragging = true;
-            distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+            if (!autoMode)
+            {
+                dragging = true;
+                distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+            }
+            else
+                controller.AutoCrank();
         }
     }
 
     public void OnMouseUp()
     {
-        if (move)
+        if (move && !autoMode)
             dragging = false;
     }
 
@@ -100,5 +108,10 @@ public class ManivelleView : MonoBehaviour
         this.state = state;
         sr.sprite = spriteList[state];
         bc.offset = centerList[state];
+    }
+
+    public void SwitchMode()
+    {
+        autoMode = !autoMode;
     }
 }

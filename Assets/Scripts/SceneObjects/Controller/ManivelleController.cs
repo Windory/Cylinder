@@ -13,6 +13,8 @@ public class ManivelleController : MonoBehaviour
     int wait = 0;
     int waitingTime = 10; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
     bool reset = false;
+    bool auto = false;
+    bool autoMode = true;
 
     // Start is called before the first frame update
     void Start()
@@ -32,9 +34,14 @@ public class ManivelleController : MonoBehaviour
             --wait;
         if (wait < 0)
             wait = 0;
+
         if (reset)
         {
             ReverseCrank();
+        }
+        else if (auto)
+        {
+            Crank();
         }
     }
 
@@ -48,7 +55,7 @@ public class ManivelleController : MonoBehaviour
             }
             else if (model.IsLimitPoint() && !GameManager.Instance().Proceed(p_controller.GetDents()))
             {
-                ResetManivelle();
+                ResetCrank();
                 return;
             }
 
@@ -86,16 +93,29 @@ public class ManivelleController : MonoBehaviour
                 Dent.SetMove(true);
                 view.SetMove(true);
                 reset = false;
+                auto = false;
             }
 
             wait = waitingTime;
         }
     }
 
-    public void ResetManivelle()
+    public void ResetCrank()
     {
         view.SetMove(false);
         reset = true;
+    }
+
+    public void AutoCrank()
+    {
+        view.SetMove(false);
+        auto = true;
+    }
+
+    public void SwitchMode()
+    {
+        autoMode = !autoMode;
+        view.SwitchMode();
     }
 
     public void SetSpeed(Slider slider)
