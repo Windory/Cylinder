@@ -24,6 +24,7 @@ public class ManivelleController : MonoBehaviour
         p_controller = GameObject.FindObjectOfType<PartitionController>();
         illustration = GameObject.FindObjectOfType<Illustration>();
         illustration.SetTrans(p_controller.GetBorneLim());
+        illustration.SetWait(waitingTime);
 
         model.SetMaxCrank(p_controller.GetBorneLim());
     }
@@ -126,5 +127,6 @@ public class ManivelleController : MonoBehaviour
     public void SetSpeed(Slider slider)
     {
         waitingTime = 10 - (int)slider.value;
+        illustration.SetWait(waitingTime);
     }
 }
