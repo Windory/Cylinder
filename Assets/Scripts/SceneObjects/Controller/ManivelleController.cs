@@ -9,7 +9,7 @@ public class ManivelleController : MonoBehaviour
     private ManivelleView view;
     private PartitionController p_controller;
     private Illustration illustration;
-    int final_img = 7;
+    int final_img = 2;
     bool final = false;
     bool end = false;
 
@@ -53,7 +53,7 @@ public class ManivelleController : MonoBehaviour
         {
             final = true;
             saveSpeed = waitingTime;
-            waitingTime = 1;
+            waitingTime = 8;
         }
         else if (final && final_img != 0 && !end)
         {
@@ -129,7 +129,12 @@ public class ManivelleController : MonoBehaviour
             p_controller.ReverseRead();
 
             if (!end)
-                illustration.ReverseRead();
+            {
+                if (!final)
+                    illustration.ReverseRead();
+                else
+                    illustration.FastReverseRead();
+            }
 
             if (model.IsBeginning() && !final)
             {
