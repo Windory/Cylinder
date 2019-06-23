@@ -15,6 +15,8 @@ public class ManivelleController : MonoBehaviour
 
     int wait = 0;
     int waitingTime = 8; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
+    int saveSpeed = 8;
+
     bool reset = false;
     bool auto = false;
     bool autoMode = true;
@@ -50,11 +52,17 @@ public class ManivelleController : MonoBehaviour
         else if (!final && GameManager.Instance().IsEnd())
         {
             final = true;
+            saveSpeed = waitingTime;
+            waitingTime = 1;
         }
         else if (final && final_img != 0 && !end)
         {
-            waitingTime = 1;
             ReverseCrank();
+        }
+        else if (!end && final_img == 0)
+        {
+            end = true;
+            waitingTime = saveSpeed;
         }
     }
 
@@ -114,8 +122,6 @@ public class ManivelleController : MonoBehaviour
                     Debug.Log(final_img);
                     --final_img;
                 }
-                else
-                    end = true;
             }
 
             model.ReverseCrank();
@@ -125,7 +131,7 @@ public class ManivelleController : MonoBehaviour
             if (!end)
                 illustration.ReverseRead();
 
-            if (model.IsBeginning())
+            if (model.IsBeginning() && !final)
             {
                 Dent.SetMove(true);
                 view.SetMove(true);
@@ -159,7 +165,12 @@ public class ManivelleController : MonoBehaviour
     {
         if (illustration == null)
             return;
-        waitingTime = 10 - (int)slider.value;
+
+        int speed = 10 - (int)slider.value;
+        if (final && !end)
+            saveSpeed = speed;
+        else
+            waitingTime = speed;
         illustration.SetWait(waitingTime);
     }
 }
