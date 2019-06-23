@@ -9,6 +9,9 @@ public class ManivelleController : MonoBehaviour
     private ManivelleView view;
     private PartitionController p_controller;
     private Illustration illustration;
+    int final_img = 7;
+    bool final = false;
+    bool end = false;
 
     int wait = 0;
     int waitingTime = 8; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
@@ -44,19 +47,28 @@ public class ManivelleController : MonoBehaviour
         {
             Crank();
         }
+        else if (!final && GameManager.Instance().IsEnd())
+        {
+            final = true;
+        }
+        else if (final && final_img != 0 && !end)
+        {
+            waitingTime = 1;
+            ReverseCrank();
+        }
     }
 
     public void Crank()
     {
         if (wait == 0)
         {
-            if (model.IsBeginning())
+            if (model.IsBeginning() && !end)
             {
                 Dent.SetMove(false);
                 if (autoMode)
                     view.SetMove(false);
             }
-            else if (model.IsLimitPoint())
+            else if (model.IsLimitPoint() && !end)
             {
                 if (!GameManager.Instance().Proceed(p_controller.GetDents()))
                 {
@@ -72,10 +84,13 @@ public class ManivelleController : MonoBehaviour
             model.Crank();
             view.UpdateView(model.GetState());
             p_controller.Read();
-            illustration.Read();
+
+            if (!end)
+                illustration.Read();
 
             if (model.IsBeginning())
             {
+                GameManager.Instance().NextLevel();
                 Dent.SetMove(true);
                 auto = false;
                 if (autoMode)
@@ -90,16 +105,25 @@ public class ManivelleController : MonoBehaviour
     {
         if (wait == 0)
         {
-            if (model.IsBeginning())
+            if (model.IsBeginning() && !end)
             {
-                Debug.Log("Max ReverseCrank");
-                return;
+                if (!final || end)
+                    return;
+                else if (final_img != 0)
+                {
+                    Debug.Log(final_img);
+                    --final_img;
+                }
+                else
+                    end = true;
             }
 
             model.ReverseCrank();
             view.UpdateView(model.GetState());
             p_controller.ReverseRead();
-            illustration.ReverseRead();
+
+            if (!end)
+                illustration.ReverseRead();
 
             if (model.IsBeginning())
             {

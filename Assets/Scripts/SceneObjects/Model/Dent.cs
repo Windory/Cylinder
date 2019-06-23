@@ -13,8 +13,8 @@ public class Dent : MonoBehaviour
 
     // Drag and Drop
     private static bool move = true;
-    private Color mouseOverColor = Color.blue;
-    private Color originalColor = Color.yellow;
+    private Color mouseOverColor = Color.yellow;
+    private Color originalColor = Color.white;
     private bool dragging = false;
     private float distance;
     private Vector3 initialPos;

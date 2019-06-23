@@ -25,10 +25,7 @@ public class Manivelle : MonoBehaviour
             state += 1;
 
         if (nbCrank == maxCrank)
-        {
             nbCrank = 0;
-            GameManager.Instance().NextLevel();
-        }
         else
             ++nbCrank;
     }

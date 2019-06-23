@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private int currentLevel = 0;
     private int nbLevels = 5;
     private int nbDents = 8;
+    bool end = false;
     public GameObject[] dents = new GameObject[4];
     
     int[][] soluce;
@@ -53,7 +54,13 @@ public class GameManager : MonoBehaviour
 
     public bool Proceed(int[] proposition)
     {
-        return proposition.SequenceEqual(soluce[currentLevel]);
+        //return proposition.SequenceEqual(soluce[currentLevel]);
+        return true;
+    }
+
+    public bool IsEnd()
+    {
+        return end;
     }
 
     public void NextLevel()
@@ -63,5 +70,7 @@ public class GameManager : MonoBehaviour
             Instantiate(dents[currentLevel]);
             ++currentLevel;
         }
+        else
+            end = true;
     }
 }

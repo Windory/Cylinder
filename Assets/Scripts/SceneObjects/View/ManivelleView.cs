@@ -16,7 +16,7 @@ public class ManivelleView : MonoBehaviour
     bool autoMode = true;
     bool move = true;
     Color mouseOverColor = Color.cyan;
-    Color originalColor = Color.gray;
+    Color originalColor = Color.white;
     bool dragging;
     float distance;
     Vector3 rotationPoint;
@@ -87,7 +87,10 @@ public class ManivelleView : MonoBehaviour
                 distance = Vector3.Distance(transform.position, Camera.main.transform.position);
             }
             else
+            {
+                GetComponent<Renderer>().material.color = originalColor;
                 controller.AutoCrank();
+            }
         }
     }
 
