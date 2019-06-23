@@ -14,7 +14,7 @@ public class Illustration : MonoBehaviour
     private int waitingTime;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         startPosition = transform.position;
         xSize = GetComponent<SpriteRenderer>().bounds.size.x;
@@ -38,7 +38,7 @@ public class Illustration : MonoBehaviour
     public void Read()
     {
         ++pos;
-        startPosition = transform.position;
+        startPosition = endPosition;
         endPosition = startPosition + Vector3.left * speed;
         remaining = waitingTime;
     }
@@ -46,7 +46,7 @@ public class Illustration : MonoBehaviour
     public void ReverseRead()
     {
         --pos;
-        startPosition = transform.position;
+        startPosition = endPosition;
         endPosition = startPosition + Vector3.right * speed;
         remaining = -waitingTime;
     }
@@ -54,11 +54,11 @@ public class Illustration : MonoBehaviour
     public void SetTrans(int nb)
     {
         nbTrans = nb;
-        speed = xSize / nbTrans;
+        speed = (xSize * 3) / (nbTrans + 1);
     }
 
     public void SetWait(int wait)
     {
-        waitingTime = wait + 1;
+        waitingTime = wait;
     }
 }

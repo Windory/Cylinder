@@ -56,10 +56,17 @@ public class ManivelleController : MonoBehaviour
                 if (autoMode)
                     view.SetMove(false);
             }
-            else if (model.IsLimitPoint() && !GameManager.Instance().Proceed(p_controller.GetDents()))
+            else if (model.IsLimitPoint())
             {
-                ResetCrank();
-                return;
+                if (!GameManager.Instance().Proceed(p_controller.GetDents()))
+                {
+                    ResetCrank();
+                    return;
+                }
+                else
+                {
+
+                }
             }
 
             model.Crank();
@@ -126,6 +133,8 @@ public class ManivelleController : MonoBehaviour
 
     public void SetSpeed(Slider slider)
     {
+        if (illustration == null)
+            return;
         waitingTime = 10 - (int)slider.value;
         illustration.SetWait(waitingTime);
     }
