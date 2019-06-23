@@ -54,7 +54,7 @@ public class Illustration : MonoBehaviour
     public void FastReverseRead()
     {
         startPosition = endPosition;
-        endPosition = startPosition + Vector3.right * speed * 6;
+        endPosition = startPosition + Vector3.right * speed * 6f;
         remaining = -waitingTime;
     }
 

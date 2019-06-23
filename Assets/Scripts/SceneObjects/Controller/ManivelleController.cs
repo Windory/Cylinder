@@ -9,13 +9,12 @@ public class ManivelleController : MonoBehaviour
     private ManivelleView view;
     private PartitionController p_controller;
     private Illustration illustration;
-    int final_img = 2;
+    int final_img = 1;
     bool final = false;
     bool end = false;
 
     int wait = 0;
     int waitingTime = 8; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
-    int saveSpeed = 8;
 
     bool reset = false;
     bool auto = false;
@@ -52,8 +51,8 @@ public class ManivelleController : MonoBehaviour
         else if (!final && GameManager.Instance().IsEnd())
         {
             final = true;
-            saveSpeed = waitingTime;
-            waitingTime = 8;
+            Dent.SetMove(false);
+            view.SetMove(false);
         }
         else if (final && final_img != 0 && !end)
         {
@@ -62,7 +61,8 @@ public class ManivelleController : MonoBehaviour
         else if (!end && final_img == 0)
         {
             end = true;
-            waitingTime = saveSpeed;
+            Dent.SetMove(true);
+            view.SetMove(true);
         }
     }
 
@@ -117,11 +117,6 @@ public class ManivelleController : MonoBehaviour
             {
                 if (!final || end)
                     return;
-                else if (final_img != 0)
-                {
-                    Debug.Log(final_img);
-                    --final_img;
-                }
             }
 
             model.ReverseCrank();
@@ -136,12 +131,17 @@ public class ManivelleController : MonoBehaviour
                     illustration.FastReverseRead();
             }
 
-            if (model.IsBeginning() && !final)
+            if (model.IsBeginning())
             {
-                Dent.SetMove(true);
-                view.SetMove(true);
-                reset = false;
-                auto = false;
+                if (!final)
+                {
+                    Dent.SetMove(true);
+                    view.SetMove(true);
+                    reset = false;
+                    auto = false;
+                }
+                else if (!end && final_img != 0)
+                    --final_img;
             }
 
             wait = waitingTime;
@@ -172,10 +172,12 @@ public class ManivelleController : MonoBehaviour
             return;
 
         int speed = 10 - (int)slider.value;
-        if (final && !end)
-            saveSpeed = speed;
-        else
-            waitingTime = speed;
+        ChangeWait(speed);
+    }
+
+    public void ChangeWait(int wait)
+    {
+        waitingTime = wait;
         illustration.SetWait(waitingTime);
     }
 }
