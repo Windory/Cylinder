@@ -9,6 +9,7 @@ public class ManivelleController : MonoBehaviour
     private ManivelleView view;
     private PartitionController p_controller;
     private Illustration illustration;
+    int wait_final = 60;
     int final_img = 1;
     bool final = false;
     bool end = false;
@@ -53,6 +54,10 @@ public class ManivelleController : MonoBehaviour
             final = true;
             Dent.SetMove(false);
             view.SetMove(false);
+        }
+        else if (final && wait_final != 0)
+        {
+            --wait_final;
         }
         else if (final && final_img != 0 && !end)
         {
