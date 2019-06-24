@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     public bool Proceed(int[] proposition)
     {
-        //return proposition.SequenceEqual(soluce[currentLevel]);
+        return proposition.SequenceEqual(soluce[currentLevel]);
         return true;
     }
 
