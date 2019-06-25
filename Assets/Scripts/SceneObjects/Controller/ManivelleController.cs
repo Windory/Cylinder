@@ -9,7 +9,7 @@ public class ManivelleController : MonoBehaviour
     private ManivelleView view;
     private PartitionController p_controller;
     private Illustration illustration;
-    int wait_final = 60;
+    int wait_final = 120;
     int final_img = 1;
     bool final = false;
     bool end = false;
