@@ -97,7 +97,7 @@ PrefabInstance:
         type: 3}
       propertyPath: sound
       value: 
-      objectReference: {fileID: 8300000, guid: 5a87a30f8697d8340b5f406db285cff6, type: 3}
+      objectReference: {fileID: 8300000, guid: 08f1ae69b7cc6894792db950f3d3c808, type: 3}
     - target: {fileID: 4129433028303431855, guid: 7672e4e8eeb24f14dbe6b787d2709856,
         type: 3}
       propertyPath: id
