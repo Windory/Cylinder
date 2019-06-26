@@ -11,8 +11,15 @@ public class GameManager : MonoBehaviour
     private int nbLevels = 5;
     private int nbDents = 8;
     bool end = false;
-    public GameObject[] dents = new GameObject[4];
+
+    public Dent[] dents = new Dent[4];
+    public EmplacementDent[] emps = new EmplacementDent[4];
+    public Animator animator;
     
+    public AudioClip getDent;
+    public AudioClip badAnswer;
+    private AudioSource source;
+
     int[][] soluce;
 
     private void Awake()
@@ -26,13 +33,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        source = GameObject.Find("Main Camera").GetComponent<AudioSource>();
 
-        soluce = new int[nbLevels][];
-        soluce[0] = new int[] { 0, 5, 7, 3, 0, 6, 0, 0 };
-        soluce[1] = new int[] { 3, 6, 8, 7, 0, 5, 0, 0 };
-        soluce[2] = new int[] { 3, 8, 5, 7, 6, 4, 0, 0 };
-        soluce[3] = new int[] { 3, 2, 4, 6, 8, 5, 7, 0 };
-        soluce[4] = new int[] { 8, 7, 6, 5, 4, 3, 2, 1 };
+        LoadSoluce();
+        SetDents();
     }
 
     // Start is called before the first frame update
@@ -47,6 +51,25 @@ public class GameManager : MonoBehaviour
         
     }
 
+    private void LoadSoluce()
+    {
+        soluce = new int[nbLevels][];
+        soluce[0] = new int[] { 0, 5, 7, 3, 0, 6, 0, 0 };
+        soluce[1] = new int[] { 3, 6, 8, 7, 0, 5, 0, 0 };
+        soluce[2] = new int[] { 3, 8, 5, 7, 6, 4, 0, 0 };
+        soluce[3] = new int[] { 3, 2, 4, 6, 8, 5, 7, 0 };
+        soluce[4] = new int[] { 8, 7, 6, 5, 4, 3, 2, 1 };
+    }
+
+    private void SetDents()
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            dents[i].gameObject.SetActive(false);
+            emps[i].gameObject.SetActive(false);
+        }
+    }
+
     public static GameManager Instance()
     {
         return instance;
@@ -55,7 +78,6 @@ public class GameManager : MonoBehaviour
     public bool Proceed(int[] proposition)
     {
         return proposition.SequenceEqual(soluce[currentLevel]);
-        return true;
     }
 
     public bool IsEnd()
@@ -67,7 +89,14 @@ public class GameManager : MonoBehaviour
     {
         if (currentLevel < nbLevels - 1)
         {
-            Instantiate(dents[currentLevel]);
+            Dent newDent = dents[currentLevel];
+            EmplacementDent newEmp = emps[currentLevel];
+
+            newDent.gameObject.SetActive(true);
+            newEmp.gameObject.SetActive(true);
+            animator.SetTrigger("NewDent");
+            source.PlayOneShot(getDent, 1);
+
             ++currentLevel;
         }
         else

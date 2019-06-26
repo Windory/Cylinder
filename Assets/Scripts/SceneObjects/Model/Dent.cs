@@ -7,9 +7,9 @@ public class Dent : MonoBehaviour
 {
     public EmplacementDent emp;
     public AudioClip sound;
-    public int id = 0;
-
     private AudioSource source;
+
+    public int id = 0;
 
     // Drag and Drop
     private static bool move = true;
