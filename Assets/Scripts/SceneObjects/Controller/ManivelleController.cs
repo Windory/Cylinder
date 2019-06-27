@@ -9,6 +9,7 @@ public class ManivelleController : MonoBehaviour
     private ManivelleView view;
     private PartitionController p_controller;
     private Illustration illustration;
+
     int wait_final = 120;
     int final_img = 1;
     bool final = false;
@@ -19,8 +20,12 @@ public class ManivelleController : MonoBehaviour
     int waitingTime = 8; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
 
     bool reset = false;
+    bool isPlaying = false;
     bool auto = false;
     bool autoMode = true;
+
+    public Animator animator;
+    public Button auto_button;
 
     public AudioClip badAnswer;
     private AudioSource source;
@@ -37,6 +42,8 @@ public class ManivelleController : MonoBehaviour
 
         model.SetMaxCrank(p_controller.GetBorneLim());
         source = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+
+        auto_button.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -50,7 +57,7 @@ public class ManivelleController : MonoBehaviour
         {
             ReverseCrank();
         }
-        else if (auto)
+        else if (autoMode && auto)
         {
             Crank();
         }
@@ -73,6 +80,8 @@ public class ManivelleController : MonoBehaviour
             end = true;
             Dent.SetMove(true);
             view.SetMove(true);
+            animator.SetTrigger("End");
+            auto_button.gameObject.SetActive(true);
         }
     }
 
@@ -92,11 +101,15 @@ public class ManivelleController : MonoBehaviour
     {
         if (wait == 0 && !pause)
         {
-            if (model.IsBeginning() && !end)
+            if (model.IsBeginning())
             {
-                Dent.SetMove(false);
-                if (autoMode)
-                    view.SetMove(false);
+                if (!end)
+                {
+                    Dent.SetMove(false);
+                    if (autoMode)
+                        view.SetMove(false);
+                }
+                isPlaying = true;
             }
             else if (model.IsLimitPoint() && !end)
             {
@@ -117,6 +130,7 @@ public class ManivelleController : MonoBehaviour
 
             if (model.IsBeginning())
             {
+                isPlaying = false;
                 GameManager.Instance().NextLevel();
                 Dent.SetMove(true);
                 auto = false;
@@ -152,8 +166,9 @@ public class ManivelleController : MonoBehaviour
 
             if (model.IsBeginning())
             {
-                if (!final)
+                if (!final || end)
                 {
+                    isPlaying = false;
                     Dent.SetMove(true);
                     view.SetMove(true);
                     reset = false;
@@ -181,8 +196,20 @@ public class ManivelleController : MonoBehaviour
 
     public void SwitchMode()
     {
+        Debug.Log("SwitchMode :");
         autoMode = !autoMode;
         view.SwitchMode();
+        SwitchColor();
+
+        if (!autoMode && (!final || end) && isPlaying)
+            view.SetMove(true);
+        else if (isPlaying)
+            view.SetMove(false);
+    }
+
+    public void SwitchColor()
+    {
+        view.SwitchColor();
     }
 
     public void SetSpeed(Slider slider)

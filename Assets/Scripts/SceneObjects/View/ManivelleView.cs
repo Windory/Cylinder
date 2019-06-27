@@ -15,8 +15,10 @@ public class ManivelleView : MonoBehaviour
     // Drag
     bool autoMode = true;
     bool move = true;
+    Color originalColor;
     Color mouseOverColor = Color.cyan;
-    Color originalColor = Color.white;
+    Color autoColor = Color.white;
+    Color manualColor = Color.magenta;
     bool dragging;
     float distance;
     Vector3 rotationPoint;
@@ -26,6 +28,7 @@ public class ManivelleView : MonoBehaviour
         controller = GetComponent<ManivelleController>();
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
+        originalColor = autoColor;
     }
 
     // Use this for initialization
@@ -116,5 +119,14 @@ public class ManivelleView : MonoBehaviour
     public void SwitchMode()
     {
         autoMode = !autoMode;
+    }
+
+    public void SwitchColor()
+    {
+        if (autoMode)
+            originalColor = autoColor;
+        else
+            originalColor = manualColor;
+        GetComponent<Renderer>().material.color = originalColor;
     }
 }
