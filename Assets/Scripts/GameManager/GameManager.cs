@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     public Animator animator;
     
     public AudioClip getDent;
-    public AudioClip badAnswer;
     private AudioSource source;
 
     int[][] soluce;
@@ -33,16 +32,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        source = GameObject.Find("Main Camera").GetComponent<AudioSource>();
 
         LoadSoluce();
-        SetDents();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        SetDents();
+        source = GameObject.Find("Main Camera").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

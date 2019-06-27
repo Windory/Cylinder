@@ -13,6 +13,7 @@ public class ManivelleController : MonoBehaviour
     int final_img = 1;
     bool final = false;
     bool end = false;
+    bool pause = false;
 
     int wait = 0;
     int waitingTime = 8; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
@@ -20,6 +21,9 @@ public class ManivelleController : MonoBehaviour
     bool reset = false;
     bool auto = false;
     bool autoMode = true;
+
+    public AudioClip badAnswer;
+    private AudioSource source;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +36,7 @@ public class ManivelleController : MonoBehaviour
         illustration.SetWait(waitingTime);
 
         model.SetMaxCrank(p_controller.GetBorneLim());
+        source = GameObject.Find("Main Camera").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -71,9 +76,20 @@ public class ManivelleController : MonoBehaviour
         }
     }
 
+    private IEnumerator waitForError()
+    {
+        pause = true;
+        source.PlayOneShot(badAnswer, 1);
+        while (source.isPlaying)
+        {
+            yield return null;
+        }
+        pause = false;
+    }
+
     public void Crank()
     {
-        if (wait == 0)
+        if (wait == 0 && !pause)
         {
             if (model.IsBeginning() && !end)
             {
@@ -85,12 +101,9 @@ public class ManivelleController : MonoBehaviour
             {
                 if (!GameManager.Instance().Proceed(p_controller.GetDents()))
                 {
+                    StartCoroutine(waitForError());
                     ResetCrank();
                     return;
-                }
-                else
-                {
-
                 }
             }
 
@@ -116,7 +129,7 @@ public class ManivelleController : MonoBehaviour
 
     public void ReverseCrank()
     {
-        if (wait == 0)
+        if (wait == 0 && !pause)
         {
             if (model.IsBeginning() && !end)
             {
