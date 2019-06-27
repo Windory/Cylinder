@@ -79,6 +79,7 @@ public class ManivelleController : MonoBehaviour
     private IEnumerator waitForError()
     {
         pause = true;
+        source.Stop();
         source.PlayOneShot(badAnswer, 1);
         while (source.isPlaying)
         {
