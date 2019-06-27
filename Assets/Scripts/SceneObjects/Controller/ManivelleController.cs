@@ -196,15 +196,11 @@ public class ManivelleController : MonoBehaviour
 
     public void SwitchMode()
     {
-        Debug.Log("SwitchMode :");
         autoMode = !autoMode;
         view.SwitchMode();
         SwitchColor();
-
-        if (!autoMode && (!final || end) && isPlaying)
-            view.SetMove(true);
-        else if (isPlaying)
-            view.SetMove(false);
+        auto = false;
+        view.SetMove(true);
     }
 
     public void SwitchColor()
