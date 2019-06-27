@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public Dent[] dents = new Dent[4];
     public EmplacementDent[] emps = new EmplacementDent[4];
+    public GameObject[] placebos = new GameObject[4];
     public Animator animator;
     
     public AudioClip getDent;
@@ -89,9 +90,11 @@ public class GameManager : MonoBehaviour
         {
             Dent newDent = dents[currentLevel];
             EmplacementDent newEmp = emps[currentLevel];
+            GameObject placebo = placebos[currentLevel];
 
             newDent.gameObject.SetActive(true);
             newEmp.gameObject.SetActive(true);
+            placebo.SetActive(false);
             animator.SetTrigger("NewDent");
             source.PlayOneShot(getDent, 1);
 
