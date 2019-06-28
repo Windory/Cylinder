@@ -198,14 +198,9 @@ public class ManivelleController : MonoBehaviour
     {
         autoMode = !autoMode;
         view.SwitchMode();
-        SwitchColor();
         auto = false;
         view.SetMove(true);
-    }
-
-    public void SwitchColor()
-    {
-        view.SwitchColor();
+        view.UpdateView(model.GetState());
     }
 
     public void SetSpeed(Slider slider)

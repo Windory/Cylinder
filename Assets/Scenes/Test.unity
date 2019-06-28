@@ -4910,6 +4910,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c2100b7d9201bdd4dbe1b4c69ec245d6, type: 3}
   - {fileID: 21300000, guid: 9759c16c3c652254791cfb0880deb7f2, type: 3}
   - {fileID: 21300000, guid: 20014e94c8d8eae4596da597930af90a, type: 3}
+  spriteListMan:
+  - {fileID: 21300000, guid: c973b7b94e8be56499bde6d10ddaa56e, type: 3}
+  - {fileID: 21300000, guid: f3b6a91a288e7cd4aa31ff3b9c65bddb, type: 3}
+  - {fileID: 21300000, guid: 76cca950e875f9543801edb6daa5a1d2, type: 3}
+  - {fileID: 21300000, guid: 17a5a615d4f012245b9324df8e671a91, type: 3}
+  - {fileID: 21300000, guid: 38856f04f54feef40a811dda8ea9cddf, type: 3}
+  - {fileID: 21300000, guid: aaa24797284a69c4da74409bf74749ad, type: 3}
+  - {fileID: 21300000, guid: f0e1c0a49bab1b44c9f91c8956bc6312, type: 3}
+  - {fileID: 21300000, guid: d1df773b6f7130444a97f80f15c7c0c2, type: 3}
   centerList:
   - {x: -0.7351875, y: -1.085339}
   - {x: -1.408537, y: -0.8927215}
@@ -6540,7 +6549,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 643433b362be8a641a95f02c2d392b18, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3b6760bee99f894418bebbd0b6956c2c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10542,11 +10551,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7342537617677082205, guid: 4e344935b9983a447bf5aeb50c3e68df,
-        type: 3}
-      propertyPath: emp
-      value: 
-      objectReference: {fileID: 424087056}
     - target: {fileID: 1688410021083519701, guid: 4e344935b9983a447bf5aeb50c3e68df,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10622,6 +10626,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7342537617677082205, guid: 4e344935b9983a447bf5aeb50c3e68df,
+        type: 3}
+      propertyPath: emp
+      value: 
+      objectReference: {fileID: 424087056}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e344935b9983a447bf5aeb50c3e68df, type: 3}
 --- !u!114 &1777401041 stripped
@@ -11580,11 +11589,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dent 4 Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 6381226804577496603, guid: 758054fcd3094c24ab43f498764116b6,
-        type: 3}
-      propertyPath: emp
-      value: 
-      objectReference: {fileID: 2079921903}
     - target: {fileID: 3027873604826802835, guid: 758054fcd3094c24ab43f498764116b6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11660,6 +11664,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6381226804577496603, guid: 758054fcd3094c24ab43f498764116b6,
+        type: 3}
+      propertyPath: emp
+      value: 
+      objectReference: {fileID: 2079921903}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 758054fcd3094c24ab43f498764116b6, type: 3}
 --- !u!1001 &1944457161
@@ -12775,11 +12784,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dent 2 Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 1704064419672468268, guid: cf8d579b281800640958ca17a305b48f,
-        type: 3}
-      propertyPath: emp
-      value: 
-      objectReference: {fileID: 678060671}
     - target: {fileID: 7290638917488144292, guid: cf8d579b281800640958ca17a305b48f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12855,6 +12859,11 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1704064419672468268, guid: cf8d579b281800640958ca17a305b48f,
+        type: 3}
+      propertyPath: emp
+      value: 
+      objectReference: {fileID: 678060671}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf8d579b281800640958ca17a305b48f, type: 3}
 --- !u!4 &2129799963 stripped

@@ -9,16 +9,15 @@ public class ManivelleView : MonoBehaviour
     private BoxCollider2D bc;
 
     public Sprite[] spriteList = new Sprite[8];
+    public Sprite[] spriteListMan = new Sprite[8];
     public Vector2[] centerList = new Vector2[8];
     int state = 0; // 0 -> 8
 
     // Drag
     bool autoMode = true;
     bool move = true;
-    Color originalColor;
+    Color originalColor = Color.white;
     Color mouseOverColor = Color.cyan;
-    Color autoColor = Color.white;
-    Color manualColor = Color.magenta;
     bool dragging;
     float distance;
     Vector3 rotationPoint;
@@ -28,7 +27,6 @@ public class ManivelleView : MonoBehaviour
         controller = GetComponent<ManivelleController>();
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
-        originalColor = autoColor;
     }
 
     // Use this for initialization
@@ -71,13 +69,13 @@ public class ManivelleView : MonoBehaviour
     public void OnMouseEnter()
     {
         if (move)
-            GetComponent<Renderer>().material.color = mouseOverColor;
+            GetComponent<SpriteRenderer>().color = mouseOverColor;
     }
 
     public void OnMouseExit()
     {
         if (move)
-            GetComponent<Renderer>().material.color = originalColor;
+            GetComponent<SpriteRenderer>().color = originalColor;
     }
 
     public void OnMouseDown()
@@ -91,7 +89,7 @@ public class ManivelleView : MonoBehaviour
             }
             else
             {
-                GetComponent<Renderer>().material.color = originalColor;
+                GetComponent<SpriteRenderer>().color = originalColor;
                 controller.AutoCrank();
             }
         }
@@ -112,21 +110,15 @@ public class ManivelleView : MonoBehaviour
     public void UpdateView(int state)
     {
         this.state = state;
-        sr.sprite = spriteList[state];
+        if (autoMode)
+            sr.sprite = spriteList[state];
+        else
+            sr.sprite = spriteListMan[state];
         bc.offset = centerList[state];
     }
 
     public void SwitchMode()
     {
         autoMode = !autoMode;
-    }
-
-    public void SwitchColor()
-    {
-        if (autoMode)
-            originalColor = autoColor;
-        else
-            originalColor = manualColor;
-        GetComponent<Renderer>().material.color = originalColor;
     }
 }
