@@ -21,7 +21,7 @@ public class Illustration : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (remaining > 0)
         {
