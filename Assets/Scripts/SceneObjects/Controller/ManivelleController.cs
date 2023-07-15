@@ -17,7 +17,7 @@ public class ManivelleController : MonoBehaviour
     bool pause = false;
 
     int wait = 0;
-    int waitingTime = 8; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
+    int waitingTime = 18; // Nombre de frames pendant lesquels la manivelle ne réagit plus après avoir été actionnée
 
     bool reset = false;
     bool isPlaying = false;
@@ -46,7 +46,7 @@ public class ManivelleController : MonoBehaviour
         auto_button.gameObject.SetActive(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (wait > 0)
             --wait;
@@ -208,7 +208,7 @@ public class ManivelleController : MonoBehaviour
         if (illustration == null)
             return;
 
-        int speed = 10 - (int)slider.value;
+        int speed = 20 - (int)slider.value;
         ChangeWait(speed);
     }
 
