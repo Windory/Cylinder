@@ -46,7 +46,7 @@ public class ManivelleController : MonoBehaviour
         auto_button.gameObject.SetActive(false);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (wait > 0)
             --wait;
